@@ -2,6 +2,7 @@ package kz.ibrahim.SoftwareProject.controllers;
 
 
 import kz.ibrahim.SoftwareProject.repositories.ContestRepository;
+import kz.ibrahim.SoftwareProject.services.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,20 +20,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/contest")
 public class ContestListController {
 
+    private final ContestService contestService;
     @Autowired
-    private ContestRepository contestRepository;
+    public ContestListController(ContestService contestService) {
+        this.contestService = contestService;
+    }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("upcomingContests", contestRepository.findAll().stream()
-                .filter(contest -> contest.getContestDate().isAfter(LocalDateTime.now(ZoneOffset.ofHours(6)))) // Replace with appropriate condition for LocalDate if needed
-                .collect(Collectors.toList()));
+        model.addAttribute("upcomingContests", contestService.findAllUpcoming());
+        model.addAttribute("recentContests", contestService.findAllRecent());
 
-        model.addAttribute("recentContests", contestRepository.findAll().stream()
-                .filter(contest -> contest.getContestDate().isBefore(LocalDateTime.now(ZoneOffset.ofHours(6)))) // Replace with appropriate condition for LocalDate if needed
-                .collect(Collectors.toList()));
-//        model.addAttribute("upcomingContests", contestRepository.findAll());
-        System.out.println(LocalDateTime.now(ZoneOffset.ofHours(6)));
         return "contest/index";
     }
 

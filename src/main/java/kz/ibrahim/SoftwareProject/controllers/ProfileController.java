@@ -19,7 +19,6 @@ public class ProfileController {
     public String profile(Model model, @PathVariable String handle) {
         model.addAttribute("handle", handle);
         model.addAttribute("student", studentRepository.findByHandle(handle));
-
         return "profile/profile";
     }
 
