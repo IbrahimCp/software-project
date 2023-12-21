@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Algorithms portal</title>
+
+    <style>
+        /* Paste the CSS code here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+<h1>Upcoming contests</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th> Contest Name </th>
+        <th> start time </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${upcomingContests.isEmpty()}">
+        <td colspan="2"> No Contests Available </td>
+    </tr>
+    <tr th:each="contest : ${upcomingContests}">
+        <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
+        <td><a th:text="${contest.getContestDate()}"> </a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<br>
+<h1>Recent contests</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th> Contest Name </th>
+        <th> start time </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${recentContests.isEmpty()}">
+        <td colspan="2"> No Contests Available </td>
+    </tr>
+    <tr th:each="contest : ${recentContests}">
+        <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
+        <td><a th:text="${contest.getContestDate()}"> </a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>
