@@ -2,11 +2,7 @@ package kz.ibrahim.SoftwareProject.models;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.TreeMap;
-
 @Entity
 @Table(name = "contests")
 public class Contest {
@@ -21,6 +17,9 @@ public class Contest {
 
     @Column(name = "contest_name")
     private String name;
+
+    @Column(name = "contest_date")
+    private LocalDateTime contestDate;
 
     public LocalDateTime getContestDate() {
         return contestDate;
@@ -43,8 +42,7 @@ public class Contest {
         this.contestDate = contestDate;
     }
 
-    @Column(name = "contest_date")
-    private LocalDateTime contestDate;
+
 
     public String getName() {
         return name;
@@ -69,5 +67,13 @@ public class Contest {
         return url;
     }
 
-
+    @Override
+    public String toString() {
+        return "Contest{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", contestDate=" + contestDate +
+                '}';
+    }
 }

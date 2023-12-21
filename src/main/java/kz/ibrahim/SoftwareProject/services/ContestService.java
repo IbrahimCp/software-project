@@ -1,12 +1,15 @@
 package kz.ibrahim.SoftwareProject.services;
 
 
+import kz.ibrahim.SoftwareProject.external.CodeForcesAdapter;
 import kz.ibrahim.SoftwareProject.models.Contest;
 import kz.ibrahim.SoftwareProject.repositories.ContestRepository;
+import kz.ibrahim.SoftwareProject.util.ContestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -17,10 +20,14 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ContestService {
 
+    private final CodeForcesAdapter codeForcesService;
     private final ContestRepository contestRepository;
 
+
+
     @Autowired
-    public ContestService(ContestRepository contestRepository) {
+    public ContestService(CodeForcesAdapter codeForcesService, ContestRepository contestRepository) {
+        this.codeForcesService = codeForcesService;
         this.contestRepository = contestRepository;
     }
 
@@ -47,7 +54,9 @@ public class ContestService {
     }
 
     @Transactional
-    public void save(Contest contest) {
+    public void save(Contest contest) throws IOException {
+        contest.setContestDate(codeForcesService.getContestStartTime(contest.getUrl()));
+        contest.setName(codeForcesService.getContestName(contest.getUrl()));
         contestRepository.save(contest);
     }
 

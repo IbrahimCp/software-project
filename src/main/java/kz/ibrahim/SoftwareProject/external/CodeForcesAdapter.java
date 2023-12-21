@@ -1,11 +1,14 @@
 package kz.ibrahim.SoftwareProject.external;
 
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class CodeForcesAdapter implements OnlineJudge {
 
     private final CodeForcesService codeForcesService;

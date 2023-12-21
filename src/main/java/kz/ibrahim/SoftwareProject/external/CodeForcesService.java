@@ -1,6 +1,7 @@
 package kz.ibrahim.SoftwareProject.external;
 
 import com.google.gson.*;
+import org.springframework.stereotype.Component;
 
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.net.URL;
 
 
+@Component
 public class CodeForcesService {
 
     private final String URL = "https://codeforces.com/api/";
@@ -42,7 +44,6 @@ public class CodeForcesService {
 
         for (String s : handles) {
             int rank = getHandleRank(response, s);
-            System.out.println(rank);
             if (rank != -1) {
                 userRank.put(s, rank);
             }
@@ -90,7 +91,6 @@ public class CodeForcesService {
 
         JsonObject response = getApiResponse(APIUrl);
 
-        System.out.println(response.toString());
         JsonArray jsonArray = response.get("result").getAsJsonArray();
 
         for (int i = 0; i < jsonArray.size(); i++) {
