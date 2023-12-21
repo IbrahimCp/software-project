@@ -16,32 +16,25 @@ public class Student {
     @Column(name = "student_name")
     private String name;
 
-    @Column(name = "password")
-    private Integer password;
+    @Column(name = "codeforces_handle")
+    private String handle;
 
     public Student() {
 
     }
-    public Student(Integer id, String name, Integer password) {
+
+    public Student(Integer id, String name, String handle) {
         this.id = id;
         this.name = name;
-        this.password = password;
-    }
-
-    public Integer getPassword() {
-        return password;
-    }
-
-    public void setPassword(Integer password) {
-        this.password = password;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.handle = handle;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,13 +45,20 @@ public class Student {
         this.name = name;
     }
 
+    public String getHandle() {
+        return handle;
+    }
+
+    public void setHandle(String handle) {
+        this.handle = handle;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password=" + password +
+                ", handle='" + handle + '\'' +
                 '}';
     }
-
 }

@@ -1,12 +1,11 @@
 package kz.ibrahim.SoftwareProject.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.TreeMap;
 
 @Entity
 @Table(name = "contests")
@@ -14,6 +13,7 @@ public class Contest {
 
     @Id
     @Column(name = "contest_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "contest_url")
@@ -30,7 +30,11 @@ public class Contest {
         this.contestDate = contestDate;
     }
 
-    public Contest() {}
+
+
+    public Contest() {
+
+    }
 
     public Contest(Integer id, String url, String name, LocalDateTime contestDate) {
         this.id = id;
