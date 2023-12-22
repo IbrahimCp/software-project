@@ -3,6 +3,7 @@ package kz.ibrahim.SoftwareProject.controllers;
 
 import jakarta.validation.Valid;
 import kz.ibrahim.SoftwareProject.models.Contest;
+import kz.ibrahim.SoftwareProject.models.Handle;
 import kz.ibrahim.SoftwareProject.models.Problem;
 import kz.ibrahim.SoftwareProject.services.ProblemService;
 import kz.ibrahim.SoftwareProject.util.ProblemValidator;
@@ -10,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -32,8 +29,9 @@ public class ProblemSetController {
         this.problemValidator = problemValidator;
     }
 
+
     @GetMapping()
-    public String index(Model model) {
+    public String index(Model model, @ModelAttribute("handle") Handle handle) {
             model.addAttribute("problems", problemService.findAll());
             return "problem-set/index";
     }
@@ -41,6 +39,17 @@ public class ProblemSetController {
     @GetMapping("/new")
     public String newContest(@ModelAttribute("problem") Problem problem) {
         return "problem-set/new";
+    }
+
+    @GetMapping("/{handle}")
+    public String userInfo(@PathVariable("handle") String handle, Model model) throws IOException {
+        model.addAttribute("problems", problemService.findAll(handle));
+        System.out.println("here");
+        return "problem-set/index-2";
+    }
+    @PostMapping("/user")
+    public String show(@ModelAttribute("handle") Handle handle) {
+        return "redirect:/problem-set/" + handle.getHandle();
     }
 
     @PostMapping()
@@ -54,5 +63,7 @@ public class ProblemSetController {
 
         return "redirect:/problem-set";
     }
+
+
 
 }

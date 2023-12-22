@@ -70,7 +70,7 @@ public class CodeForcesService {
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject problem = jsonArray.get(i).getAsJsonObject();
 
-            if (problem.get("verdict").getAsString().equals("OK")) {
+            if (problem.has("contestId") && problem.get("verdict").getAsString().equals("OK")) {
                 String contestId = problem.get("contestId").getAsString();
                 String problemId = problem.get("problem").getAsJsonObject().get("index").getAsString();
 

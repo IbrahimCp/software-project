@@ -13,7 +13,19 @@ public class Problem {
     @Column(name = "problem_name")
     private String name;
 
-    public Problem( String url, String name) {
+    @Column(name = "solved")
+    private Boolean solved;
+
+    public Boolean getSolved() {
+        return solved;
+    }
+
+    public void setSolved(Boolean solved) {
+        this.solved = solved;
+    }
+
+    public Problem(String url, String name, Boolean solved) {
+        this.solved = solved;
         this.url = url;
         this.name = name;
     }

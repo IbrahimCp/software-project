@@ -60,6 +60,12 @@
             background-color: #0056b3;
         }
 
+        .searchWithHandle {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
     </style>
 
 </head>
@@ -87,6 +93,14 @@
     </div>
 </nav>
 
+<div class="searchWithHandle">
+    <form th:action="@{/problem-set/user}" th:method="post" th:object="${handle}">
+        <h4>Find user:</h4>
+        <input type="text" id="handle" name="handle" th:placeholder="Handle..." th:value="${handle.getHandle()}">
+        <input type="submit" value="SEARCH" class="submit-button"/>
+    </form>
+</div>
+
 <h1>Problem Set</h1>
 
 <table>
@@ -101,10 +115,14 @@
     <tr th:if="${problems.isEmpty()}">
         <td colspan="2"> No Contests Available </td>
     </tr>
-    <tr th:each="problem : ${problems}">
-        <td><a th:href="${problem.getUrl()}" th:text="${problem.getName()}" ></a></td>
-        <td><span> Not Solved </span></td>
+    <tr th:each="problem : ${problems}" th:style="${problem.getSolved() ? 'background-color: green;' : ''}">
+        <td><a th:href="${problem.getUrl()}" th:text="${problem.getName()}"></a></td>
+        <td>
+            <span th:if="${not problem.solved}">Not Solved</span>
+            <span th:if="${problem.solved}" style="color: green;">Solved</span>
+        </td>
     </tr>
+
     </tbody>
 </table>
 

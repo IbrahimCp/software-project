@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Algorithms portal</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <style>
+    /* Paste the CSS code here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    a:hover {
+      color: #0056b3;
+    }
+
+    button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .searchWithHandle {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="home">SDU Contest</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contest">Contests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/problem-set">Problems</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<h1>Problem Set</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th> Problem Name </th>
+    <th> Solved </th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${problems.isEmpty()}">
+    <td colspan="2"> No Contests Available </td>
+  </tr>
+  <tr th:each="problem : ${problems}" th:style="${problem.solved ? 'background-color: #f2f2f2;' : ''}">
+    <td><a th:href="${problem.getUrl()}" th:text="${problem.getName()}"></a></td>
+    <td>
+      <span th:if="${not problem.solved}">Not Solved</span>
+      <span th:if="${problem.solved}" style="color: green;">Solved</span>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+
+<br>
+
+
+<br>
+
+<a href="/problem-set/new">
+  <button type="button">Add problem</button>
+</a>
+
+
+</body>
+</html>

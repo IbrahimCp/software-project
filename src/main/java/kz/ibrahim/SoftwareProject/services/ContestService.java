@@ -24,7 +24,6 @@ public class ContestService {
     private final ContestRepository contestRepository;
 
 
-
     @Autowired
     public ContestService(CodeForcesAdapter codeForcesService, ContestRepository contestRepository) {
         this.codeForcesService = codeForcesService;

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,6 +27,23 @@ public class ProblemService {
 
     public List<Problem> findAll() {
         return problemRepository.findAll();
+    }
+
+    public List<Problem> findAll(String handle) throws IOException {
+
+        List<Problem> problems = problemRepository.findAll();
+
+        Map<String, LocalDateTime> solved = codeForcesService.
+                getSolvedProblems(handle, problems.stream().
+                map(Problem::getUrl).toList());
+
+
+        for (var cur : problems) {
+            if (solved.containsKey(cur.getUrl())) {
+                cur.setSolved(true);
+            }
+        }
+        return problems;
     }
 
     @Transactional
