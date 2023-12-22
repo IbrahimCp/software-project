@@ -22,7 +22,7 @@ public class ContestValidator implements Validator {
         Contest contest = (Contest) target;
         String contestUrl = contest.getUrl();
         if (!isValidCodeforcesUrl(contestUrl)) {
-            errors.rejectValue("url", "non valid contest url");
+            errors.rejectValue("url","", "non valid contest url");
         }
     }
 

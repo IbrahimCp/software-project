@@ -5,8 +5,7 @@
     <title>Algorithms portal</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <style >
-
+    <style>
         /* Paste the CSS code here */
         body {
             font-family: Arial, sans-serif;
@@ -61,7 +60,6 @@
             background-color: #0056b3;
         }
 
-
     </style>
 
 </head>
@@ -89,49 +87,30 @@
     </div>
 </nav>
 
-<h4>Upcoming contests</h4>
+<h1>Problem Set</h1>
 
 <table>
     <thead>
     <tr>
-        <th> Contest Name </th>
-        <th> start time </th>
+        <th> Problem Name </th>
+        <th> Solved </th>
 
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${upcomingContests.isEmpty()}">
+    <tr th:if="${problems.isEmpty()}">
         <td colspan="2"> No Contests Available </td>
     </tr>
-    <tr th:each="contest : ${upcomingContests}">
-        <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
-        <td><a th:text="${contest.getContestDate()}"> </a></td>
+    <tr th:each="problem : ${problems}">
+        <td><a th:href="${problem.getUrl()}" th:text="${problem.getName()}" ></a></td>
+        <td><span> Not Solved </span></td>
     </tr>
     </tbody>
 </table>
 
 
 <br>
-<h4>Recent contests</h4>
 
-<table>
-    <thead>
-    <tr>
-        <th> Contest Name </th>
-        <th> start time </th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${recentContests.isEmpty()}">
-        <td colspan="2"> No Contests Available </td>
-    </tr>
-    <tr th:each="contest : ${recentContests}">
-        <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
-        <td><a th:text="${contest.getContestDate()}"> </a></td>
-    </tr>
-    </tbody>
-</table>
 
 <br>
 

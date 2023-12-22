@@ -8,10 +8,6 @@ import java.time.LocalDateTime;
 public class Contest {
 
     @Id
-    @Column(name = "contest_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Column(name = "contest_url")
     private String url;
 
@@ -35,8 +31,7 @@ public class Contest {
 
     }
 
-    public Contest(Integer id, String url, String name, LocalDateTime contestDate) {
-        this.id = id;
+    public Contest(String url, String name, LocalDateTime contestDate) {
         this.url = url;
         this.name = name;
         this.contestDate = contestDate;
@@ -52,12 +47,6 @@ public class Contest {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public void setUrl(String url) {
         this.url = url;
@@ -70,7 +59,6 @@ public class Contest {
     @Override
     public String toString() {
         return "Contest{" +
-                "id=" + id +
                 ", url='" + url + '\'' +
                 ", name='" + name + '\'' +
                 ", contestDate=" + contestDate +

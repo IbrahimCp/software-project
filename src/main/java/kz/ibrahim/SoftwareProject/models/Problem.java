@@ -7,31 +7,19 @@ import jakarta.persistence.*;
 public class Problem {
 
     @Id
-    @Column(name = "problem_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Column(name = "problem_url")
     private String url;
 
     @Column(name = "problem_name")
     private String name;
 
-    public Problem(Integer id, String url, String name) {
-        this.id = id;
+    public Problem( String url, String name) {
         this.url = url;
         this.name = name;
     }
 
     public Problem() {
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUrl() {

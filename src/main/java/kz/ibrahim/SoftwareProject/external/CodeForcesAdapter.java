@@ -35,4 +35,9 @@ public class CodeForcesAdapter implements OnlineJudge {
     public String getContestName(String contestURL) throws IOException {
         return codeForcesService.getContestName(contestURL);
     }
+
+    @Override
+    public String getProblemName(String problemURL) throws IOException {
+        return codeForcesService.problemName(problemURL);
+    }
 }

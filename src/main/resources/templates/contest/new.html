@@ -5,12 +5,15 @@
     <title>New Contest</title>
 </head>
 <body>
-<form th:method = "POST" th:action = "@{/contest}" th:object="${contest}">
+<form th:method="POST" th:action="@{/contest}"  th:object="${contest}">
     <label for="url">Enter contest URL</label>
-    <input type="text" th:field="*{url}" id = "url"/>
+    <input type="text" th:field="*{url}" id="url"/>
     <div th:if="${#fields.hasErrors('url')}" th:errors="*{url}">error name</div>
     <br>
     <input type="submit" value="Add!"/>
 </form>
+
+
+
 </body>
 </html>

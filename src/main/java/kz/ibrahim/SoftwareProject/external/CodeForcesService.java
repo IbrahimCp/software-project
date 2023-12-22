@@ -44,6 +44,7 @@ public class CodeForcesService {
 
         for (String s : handles) {
             int rank = getHandleRank(response, s);
+            System.out.println(rank);
             if (rank != -1) {
                 userRank.put(s, rank);
             }
@@ -91,6 +92,7 @@ public class CodeForcesService {
 
         JsonObject response = getApiResponse(APIUrl);
 
+        System.out.println(response.toString());
         JsonArray jsonArray = response.get("result").getAsJsonArray();
 
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -164,6 +166,28 @@ public class CodeForcesService {
         } else {
             throw new IOException("HTTP Request Failed. Response Code: " + responseCode);
         }
+    }
+
+    public String problemName(String url) throws IOException{
+        String APIUrl = URL + "problemset.problems";
+
+        String[] URLDetails = url.split("/");
+        String contestId = URLDetails[URLDetails.length - 3];
+        String problemIndex = URLDetails[URLDetails.length - 1];
+
+
+        JsonObject response = getApiResponse(APIUrl);
+        JsonArray jsonArray = response.get("result").getAsJsonObject().get("problems").getAsJsonArray();
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject object = jsonArray.get(i).getAsJsonObject();
+            String currentContestId = object.getAsJsonObject().get("contestId").getAsString();
+            String currentContestIndex = object.getAsJsonObject().get("index").getAsString();
+            if (currentContestId.equals(contestId) && currentContestIndex.equals(problemIndex)) {
+                return object.getAsJsonObject().get("name").getAsString();
+            }
+        }
+        return null;
     }
 
 }

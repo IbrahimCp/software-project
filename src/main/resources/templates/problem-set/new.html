@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Problem</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/problem-set}"  th:object="${problem}">
+    <label for="url">Enter problem URL</label>
+    <input type="text" th:field="*{url}" id="url"/>
+    <div th:if="${#fields.hasErrors('url')}" th:errors="*{url}" style="color: red" >error name</div>
+    <br>
+    <input type="submit" value="Add!"/>
+</form>
+
+
+
+</body>
+</html>

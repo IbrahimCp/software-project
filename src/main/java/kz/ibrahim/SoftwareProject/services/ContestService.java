@@ -47,7 +47,7 @@ public class ContestService {
                 .collect(Collectors.toList());
     }
 
-    public Contest findOne(Integer id) {
+    public Contest findOne(String id) {
         Optional<Contest> foundContest = contestRepository.findById(id);
 
         return foundContest.orElse(null);
@@ -55,14 +55,16 @@ public class ContestService {
 
     @Transactional
     public void save(Contest contest) throws IOException {
+        String[] temp = contest.getUrl().split("/");
         contest.setContestDate(codeForcesService.getContestStartTime(contest.getUrl()));
         contest.setName(codeForcesService.getContestName(contest.getUrl()));
+        System.out.println(contest);
         contestRepository.save(contest);
     }
 
     @Transactional
-    public void update(int id, Contest updatedContest) {
-        updatedContest.setId(id);
+    public void update(String url, Contest updatedContest) {
+        updatedContest.setUrl(url);
         contestRepository.save(updatedContest);
     }
 
