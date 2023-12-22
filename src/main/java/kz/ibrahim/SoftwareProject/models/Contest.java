@@ -17,6 +17,17 @@ public class Contest {
     @Column(name = "contest_date")
     private LocalDateTime contestDate;
 
+    @Column(name = "updated")
+    private Boolean updated;
+
+    public Boolean getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Boolean updated) {
+        this.updated = updated;
+    }
+
     public LocalDateTime getContestDate() {
         return contestDate;
     }

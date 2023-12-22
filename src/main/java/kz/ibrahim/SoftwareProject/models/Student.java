@@ -19,14 +19,27 @@ public class Student {
     @Column(name = "codeforces_handle")
     private String handle;
 
+    @Column(name = "student_rating")
+    private Integer rating;
+
     public Student() {
 
     }
 
-    public Student(Integer id, String name, String handle) {
+    public Student(Integer id, String name, String handle, Integer rating) {
         this.id = id;
         this.name = name;
         this.handle = handle;
+        this.rating = rating;
+    }
+
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public Integer getId() {

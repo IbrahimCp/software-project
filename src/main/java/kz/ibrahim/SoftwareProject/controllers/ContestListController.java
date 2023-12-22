@@ -4,6 +4,7 @@ package kz.ibrahim.SoftwareProject.controllers;
 import jakarta.validation.Valid;
 import kz.ibrahim.SoftwareProject.models.Contest;
 import kz.ibrahim.SoftwareProject.services.ContestService;
+import kz.ibrahim.SoftwareProject.services.StudentService;
 import kz.ibrahim.SoftwareProject.util.ContestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,14 @@ import java.io.IOException;
 public class ContestListController {
 
     private final ContestService contestService;
+    private final StudentService studentService;
 
     private final ContestValidator contestValidator;
 
     @Autowired
-    public ContestListController(ContestService contestService, ContestValidator contestValidator) {
+    public ContestListController(ContestService contestService, StudentService studentService, ContestValidator contestValidator) {
         this.contestService = contestService;
+        this.studentService = studentService;
         this.contestValidator = contestValidator;
     }
 
@@ -44,7 +47,6 @@ public class ContestListController {
     }
 
     @PostMapping()
-
     public String createContest(@ModelAttribute("contest") @Valid Contest contest, BindingResult contestBindingResult) throws IOException {
         contestValidator.validate(contest, contestBindingResult);
         if (contestBindingResult.hasErrors()) {
@@ -53,6 +55,12 @@ public class ContestListController {
         contestService.save(contest);
 
         return "redirect:/contest";
+    }
+
+    @PostMapping("/update")
+    public String update() throws IOException {
+        studentService.updateRating();
+        return "redirect:";
     }
 
 }

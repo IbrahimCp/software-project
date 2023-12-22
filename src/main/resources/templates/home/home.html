@@ -5,193 +5,85 @@
     <title>Algorithms portal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-    <style>
-
-        /* Paste the CSS code here */
+    <style >
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
 
-        .all-information {
-            position: relative;
-            margin-bottom: 90px;
+        h1 {
+            color: #333;
         }
 
-        /* POSTS */
-        .post-table {
+        table {
+            width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8px;
-            width: 600px;
-            max-width: 600px;
-            border-color: #fff;
-        }
-        .post-text {
-            text-align: left;
-            padding: 8px;
-            color: #fff;
-        }
-        .posts tr:nth-child(odd) {
-            background-color: #21af17;
-            border: 1px solid #fff;
-        }
-        .posts div {
-            margin-bottom: 20px;
-        }
-        .all-posts a {
-            background-color: #2b9f24;
-            text-decoration: none;
-            color: #ffffff;
-            font-family: "Nexa Bold" , sans-serif;
-            font-weight: bold;
-            border-color: #fff;
-            border-radius: 15px;
-        }
-        .posts {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            right: 200px;
-        }
-        .header {
-            font-family: "Nexa Bold",serif;
-        }
-        .post-title {
-            font-family: "Helvetica" , sans-serif;
-            font-weight: bold;
+            margin-top: 20px;
         }
 
-
-        /* UPCOMING CONTESTS */
-        .upcoming-contests {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            left: 200px;
-            border-radius: 10px;
-        }
-
-        .upcoming-table {
-            width: 400px;
-            max-width: 400px;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-            border-radius: 10px;
-        }
-
-        .upcoming-contests th, td {
-            border: 1px solid #eeeeee;
+        th, td {
+            border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
 
-        .upcoming-contests th {
-            background-color: #1e388d;
-            color: #fff;
+        th {
+            background-color: #f2f2f2;
         }
 
-        .upcoming-contests tbody tr:nth-child(even) {
-            background-color: #1153b7;
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
-        .upcoming-contests a {
+        a {
             text-decoration: none;
-            color: #ffffff;
+            color: #007bff;
         }
 
-        .upcoming-contests a:hover {
+        a:hover {
             color: #0056b3;
         }
 
-        /* RANK */
-        .rank {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            left: 200px;
-            border-radius: 10px;
-        }
-
-        .rank-table {
-            width: 400px;
-            max-width: 400px;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-            border-radius: 10px;
-        }
-
-        .rank th, td {
-            border: 1px solid #eeeeee;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .rank th {
-            background-color: #1e388d;
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
             color: #fff;
+            border: none;
+            border-radius: 4px;
         }
 
-        .rank tbody tr:nth-child(even) {
-            background-color: #1153b7;
+        button:hover {
+            background-color: #0056b3;
         }
 
-        .rank a {
-            text-decoration: none;
-            color: #ffffff;
+        .searchWithHandle {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
         }
 
-        .rank a:hover {
-            color: #0056b3;
+        .submit-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
         }
 
-        .author-date {
-            font-family: "Helvetica" , sans-serif;
-            font-size: small;
-        }
-        .left {
-            position: absolute;
-            left: 200px;
-        }
-
-        .all-contests a {
-            background-color: #1e388d;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #ffffff;
-            font-family: "Nexa Bold" , sans-serif;
-            font-weight: bold;
-            padding: 8px;
-        }
-
-        .all-contests a:hover {
-            background-color: #fff900;
-            transition: 0.3s;
-        }
-
-
-        .button-posts {
-            padding: 20px;
-        }
-
-        .line {
-            color: #2b9f24;
-        }
-        .left div {
-            margin: 8px;
-        }
     </style>
+
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home">SDU Contest</a>
+        <a class="navbar-brand" href="/home">SDU Contest</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -210,80 +102,56 @@
         </div>
     </div>
 </nav>
-    <div class="all-information">
-        <div class="left">
-        <div class="upcoming-contests">
-            <h1 class="header">UPCOMING CONTESTS:</h1>
-            <table class="upcoming-table">
-                <thead>
-                <tr>
-                    <th> Contest Name </th>
-                    <th> Start time </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${upcomingContests.isEmpty()}">
-                    <td colspan="2"> No Contests Available </td>
-                </tr>
-                <tr th:each="contest : ${upcomingContests}">
-                    <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
-                    <td><a th:text="${contest.getContestDate()}"> </a></td>
-                </tr>
-                </tbody>
-            </table>
+<div class="searchWithHandle">
+<form th:action="@{/home}" th:method="post" th:object="${handle}">
+    <h4>Find user:</h4>
+    <input type="text" id="handle" name="handle" th:placeholder="Handle..." th:value="${handle.getHandle()}">
+    <input type="submit" value="SEARCH" class="submit-button"/>
+</form>
+</div>
 
-            <div class="all-contests">
-                <a href="contest" class="button-posts">CONTESTS</a>
-            </div>
-        </div>
+<h4>Upcoming contests:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th> Contest Name </th>
+                <th> start time </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${upcomingContests.isEmpty()}">
+                <td colspan="2"> No Contests Available </td>
+            </tr>
+            <tr th:each="contest : ${upcomingContests}">
+                <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
+                <td><a th:text="${contest.getContestDate()}"> </a></td>
+            </tr>
+    </tbody>
+</table>
 
-        <div class="rank">
-            <h1 class="header">RANK:</h1>
-            <table class="rank-table">
-                <thead>
-                <tr>
-                    <th> Handle </th>
-                    <th> Points </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${upcomingContests.isEmpty()}">
-                    <td colspan="2"> No Rank Available </td>
-                </tr>
-                <tr th:each="contest : ${upcomingContests}">
-                    <td><a th:href="${contest.getUrl()}" th:text="${contest.getName()}" ></a></td>
-                    <td><a th:text="${contest.getContestDate()}"> </a></td>
-                </tr>
-                </tbody>
-            </table>
+        <br>
+        <h4>Ranking:</h4>
 
-            <div class="all-contests">
-                <a href="rank" class="button-posts">RANKS</a>
-            </div>
-        </div>
-        </div>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th> Handle </th>
+                <th> Rating </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${students.isEmpty()}">
+                <td colspan="3"> No Contests Available </td>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td><a th:text="${studentStat.index+1}"></a></td>
+                <td><a th:href="@{/profile/__${student.getHandle()}__}" th:text="${student.getHandle()}"></a></td>
+                <td><a th:text="${student.getRating()}"> </a></td>
+            </tr>
+            </tbody>
+        </table>
+<br>
 
-        <div class="posts">
-            <h1 class="header">POSTS:</h1>
-            <div class="last-five">
-                <div th:each="post : ${posts}">
-                    <table class="post-table">
-                        <tr class="post-title">
-                            <td class="post-text" th:text="${post.getTitle()}"></td>
-                        </tr>
-                        <tr class="post-tr">
-                            <td class="post-texter" th:text="${post.getAbout_post()}"></td>
-                        </tr>
-                    </table>
-                    <hr class="line">
-                    <p th:text="${post.getPost_date()} + ' ' + ${post.getAuthor()}" class="author-date"/>
-                </div>
-            </div>
-
-            <div class="all-posts">
-                <a href="all_posts" class="button-posts">ALL POSTS</a>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
