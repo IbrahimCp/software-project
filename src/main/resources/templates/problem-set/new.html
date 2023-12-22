@@ -46,7 +46,6 @@
     <label for="url">Enter problem URL</label>
     <input type="text" th:field="*{url}" id="url"/>
     <div th:if="${#fields.hasErrors('url')}" th:errors="*{url}">error name</div>
-    <>
     <br>
     <input type="submit" value="Add!"/>
 </form>

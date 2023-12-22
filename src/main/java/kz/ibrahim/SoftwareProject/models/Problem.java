@@ -1,6 +1,7 @@
 package kz.ibrahim.SoftwareProject.models;
 
 import jakarta.persistence.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
 @Table(name = "problems")
@@ -14,7 +15,7 @@ public class Problem {
     private String name;
 
     @Column(name = "solved")
-    private Boolean solved;
+    private Boolean solved = false;
 
     public Boolean getSolved() {
         return solved;
