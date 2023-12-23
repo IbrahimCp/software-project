@@ -44,6 +44,7 @@ public class ProblemSetController {
     @GetMapping("/{handle}")
     public String userInfo(@PathVariable("handle") String handle, Model model) throws IOException {
         model.addAttribute("problems", problemService.findAll(handle));
+        model.addAttribute("handle", handle);
         System.out.println("here");
         return "problem-set/index-2";
     }
