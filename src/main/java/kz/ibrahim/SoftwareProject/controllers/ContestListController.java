@@ -56,11 +56,9 @@ public class ContestListController {
 
         return "redirect:/contest";
     }
-
     @PostMapping("/update")
     public String update() throws IOException {
         studentService.updateRating();
-        return "redirect:";
+        return "redirect:/contest";
     }
-
 }

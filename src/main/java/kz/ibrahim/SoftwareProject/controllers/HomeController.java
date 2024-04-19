@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/home")
 public class HomeController {
 
-
     private final StudentService studentService;
 
     private final ContestService contestService;

@@ -36,12 +36,11 @@ public class StudentService {
                 .filter(contest -> !contest.getUpdated())
                 .toList();
 
+        System.out.println("here");
         for (var currentContest : filteredContests) {
-
             List<String> handles = studentRepository.findAll().stream()
                     .map(Student::getHandle)
                     .toList();
-
             List<String> students = codeForcesAdapter.getUserRanks(currentContest.getUrl(), handles);
             for (int i = 0; i < min(30, students.size()); i++) {
                 Student currentStudent = studentRepository.findByHandle(students.get(i));
@@ -49,12 +48,14 @@ public class StudentService {
                 studentRepository.save(currentStudent);
             }
         }
+        System.out.println("here A");
 
         for (var currentContest : filteredContests) {
             currentContest.setUpdated(true);
             contestService.update(currentContest.getUrl(), currentContest);
         }
 
+        System.out.println("here B");
     }
 
     public List<Student> findAll(int limit) {

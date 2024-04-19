@@ -1,46 +1,53 @@
 package kz.ibrahim.SoftwareProject.external;
 
 import com.google.gson.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 
 import java.io.*;
-import java.net.HttpURLConnection;
+import java.lang.reflect.AccessibleObject;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
-import java.net.URL;
 
 
 @Component
 public class CodeForcesService {
 
     private final String URL = "https://codeforces.com/api/";
+    private final RestTemplate restTemplate = new RestTemplate();
 
-//    public void main(String[] args) throws IOException {
-//        List<String> problems = Arrays.asList("https://codeforces.com/contest/1913/problem/B", "https://codeforces.com/contest/1905/problem/B",
-//                "https://codeforces.com/contest/1914/problem/F");
-//
-//        var cur = getSolvedProblems("ibrm", problems);
-//
-//        for (Map.Entry<String, LocalDateTime> entry : cur.entrySet()) {
-//            String key = entry.getKey();
-//            LocalDateTime value = entry.getValue();
-//            System.out.println("Key: " + key + ", Value: " + value.toString());
-//        }
-//
-//    }
+    public JsonObject getApiResponse(String apiUrl) {
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
 
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return JsonParser.parseString(Objects.requireNonNull(responseEntity.getBody())).getAsJsonObject();
+        } else {
+            throw new RuntimeException("HTTP Request Failed. Response Code: " + responseEntity.getStatusCodeValue());
+        }
+    }
     private LocalDateTime unixToDate(Long unixTime) {
-        return LocalDateTime.ofEpochSecond(unixTime, 0, ZoneOffset.ofHours(6));
+        return LocalDateTime.ofEpochSecond(unixTime, 0, ZoneOffset.ofHours(5));
     }
 
     public List<String> getUserRanks(String contestURL, List<String> handles) throws IOException {
+        if (handles.isEmpty()) {
+            return new ArrayList<>();
+        }
         TreeMap<String, Integer> userRank = new TreeMap<>();
 
         String[] p = contestURL.split("/");
-        String APIUrl = URL + "contest.standings?contestId=" + p[p.length - 1];
-        JsonObject response = getApiResponse(APIUrl);
+        StringBuilder APIUrl = new StringBuilder(URL + "contest.standings?contestId=" + p[p.length - 1] + "&handles=");
+        for (int i = 0; i < handles.size(); i++) {
+            APIUrl.append(handles.get(i));
+            if (i != handles.size() - 1) {
+                APIUrl.append(";");
+            }
+        }
+        System.out.println(APIUrl);
+        JsonObject response = getApiResponse(APIUrl.toString());
 
         for (String s : handles) {
             int rank = getHandleRank(response, s);
@@ -54,13 +61,15 @@ public class CodeForcesService {
     }
 
     public Map<String, LocalDateTime> getSolvedProblems(String handle, List<String> problems) throws IOException {
+        System.out.println("before api " + unixToDate(System.currentTimeMillis() / 1000));
         Map<String, LocalDateTime> result = new HashMap<>();
 
         String APIUrl = URL + "user.status?handle=" + handle;
 
         JsonArray jsonArray = getApiResponse(APIUrl).getAsJsonArray("result");
+        System.out.println("after api " + unixToDate(System.currentTimeMillis() / 1000));
 
-        List<String> problemNames = new ArrayList<>();
+        HashSet<String> problemNames = new HashSet<>();
 
         for (String problem : problems) {
             String[] p = problem.split("/");
@@ -81,6 +90,8 @@ public class CodeForcesService {
             }
         }
 
+        System.out.println("after: " + unixToDate(System.currentTimeMillis() / 1000));
+
         return result;
     }
 
@@ -92,7 +103,6 @@ public class CodeForcesService {
 
         JsonObject response = getApiResponse(APIUrl);
 
-        System.out.println(response.toString());
         JsonArray jsonArray = response.get("result").getAsJsonArray();
 
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -146,28 +156,6 @@ public class CodeForcesService {
         return -1;
     }
 
-    private JsonObject getApiResponse(String apiUrl) throws IOException {
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            return JsonParser.parseString(response.toString()).getAsJsonObject();
-        } else {
-            throw new IOException("HTTP Request Failed. Response Code: " + responseCode);
-        }
-    }
-
     public String problemName(String url) throws IOException{
         String APIUrl = URL + "problemset.problems";
 
@@ -189,5 +177,4 @@ public class CodeForcesService {
         }
         return null;
     }
-
 }
